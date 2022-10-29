@@ -41,8 +41,9 @@ public class BitOperations {
 				res = mask | number;
 			} 	else {						
 				long mask = 1 << nBit;
-				mask = ~mask;
-				res = mask & number;
+				res = mask ^ number;
+//				mask = ~mask;
+//				res = mask & number;
 			} 	
 	
 		return res; 
@@ -57,7 +58,7 @@ public class BitOperations {
 	static public long revertBitValue(long number, int nBit) {
 		
 		long mask = 1 << nBit;
-						 
+				 
 		return number ^ mask;
 
 	}
