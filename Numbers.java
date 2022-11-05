@@ -17,6 +17,8 @@ static public int getNdigits(long number) {
 static public boolean isHappyNumber (int number) {
 	boolean res = false;
 	int amount = 0;
+	int first3 = 0;
+	int last3 = 0;
 	int aux = number;
 	
 	if (number > 0) {
@@ -25,15 +27,18 @@ static public boolean isHappyNumber (int number) {
 		amount++;
 	} while (aux != 0);
 	 	
-	if (amount == 6) {
-	int a = number % 10;
-	int b = number / 10 % 10;
-	int c = number / 100 % 10;
-	int d = number / 1000 % 10;
-	int e = number / 10000 % 10;
-	int f = number / 100000; 
+	if (amount == 6) { 
 	
-	if (a + b + c == d + e + f) {
+	for (int i = 0; i < 3; i++) {
+		first3 += number % 10;
+		number /= 10;
+	}
+	for (int i = 0; i < 3; i++) {
+		last3 += number % 10;
+		number /= 10;
+	}
+	
+	if (first3 == last3) {
 	res = true;
 	}
 	}
