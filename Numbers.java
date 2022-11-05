@@ -15,7 +15,7 @@ static public int getNdigits(long number) {
  * and sum of first three digits equals the sum of last three digits 
  */
 static public boolean isHappyNumber (int number) {
-	boolean res = false;
+	boolean res;
 	int amount = 0;
 	int aux = number;
 	
@@ -28,37 +28,17 @@ static public boolean isHappyNumber (int number) {
 	if (amount == 6) {
 	int a = number % 10;
 	int b = number / 10 % 10;
-	int c = number /100 % 10;
+	int c = number / 100 % 10;
 	int d = number / 1000 % 10;
 	int e = number / 10000 % 10;
-	int f = number / 100000 % 10; 
-
-	if (a != b) {
-		if (a != c) {
-			if (a != d) { 
-				if (a != e) { 
-					if (a != f) {
-	if (b != c) {
-		if (b != d) { 
-			if (b != e) {
-				if (b != f) {
-	if (c != d) {
-		if (c != e) {
-			if (c != f) {
-	if (d != e) {
-		if (d != f) {
-	if (e != f) {
+	int f = number / 100000; 
 	
-	int firstThree = a + b + c;
-	int lastThree = d + e + f;
-	
-	if (firstThree == lastThree) {
-	
+	if (a + b + c == d + e + f) {
 	res = true;
-	} 
-	}}}}}}}}}}}}}}}
-	} 
-	}
+	} else { res = false; }
+	} else { res = false; }
+	} else { res = false; } 
+	
 	return res; 
 	}
 		

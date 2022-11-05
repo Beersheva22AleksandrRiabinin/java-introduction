@@ -97,6 +97,7 @@ class PrimitivesTest {
 		assertEquals(56, BitOperations.leadingZeros(a));
 		long b = -222;
 		assertEquals(0, BitOperations.leadingZeros(b));
+		
 	}
 	@Test 
 	void leadingOnesTest() {
@@ -115,9 +116,9 @@ class PrimitivesTest {
 	void isHappyNumberTest() {
 		int a = 912453;
 		assertEquals(true, Numbers.isHappyNumber(a));
-		int b = 123123;
-		assertEquals(false, Numbers.isHappyNumber(b));
-		int c = 123124;
+		int b = 190532;
+		assertEquals(true, Numbers.isHappyNumber(b));
+		int c = 222223;
 		assertEquals(false, Numbers.isHappyNumber(c));
 		int d = 1234567;
 		assertEquals(false, Numbers.isHappyNumber(d));
@@ -125,9 +126,9 @@ class PrimitivesTest {
 		assertEquals(false, Numbers.isHappyNumber(e));
 		int f = -913562;
 		assertEquals(false, Numbers.isHappyNumber(f));
-		int g = 000000;
-		assertEquals(false, Numbers.isHappyNumber(g));
-		int h = 951340;
+		int g = 100001;
+		assertEquals(true, Numbers.isHappyNumber(g));
+		int h = 0;
 		assertEquals(false, Numbers.isHappyNumber(h)); 
 		
 	}
