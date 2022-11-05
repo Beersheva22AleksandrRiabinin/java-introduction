@@ -15,7 +15,7 @@ static public int getNdigits(long number) {
  * and sum of first three digits equals the sum of last three digits 
  */
 static public boolean isHappyNumber (int number) {
-	boolean res;
+	boolean res = false;
 	int amount = 0;
 	int aux = number;
 	
@@ -35,9 +35,9 @@ static public boolean isHappyNumber (int number) {
 	
 	if (a + b + c == d + e + f) {
 	res = true;
-	} else { res = false; }
-	} else { res = false; }
-	} else { res = false; } 
+	}
+	}
+	} 
 	
 	return res; 
 	}
