@@ -7,26 +7,32 @@ public class SportLotoAppl {
 	 * no additional collections / arrays
 	 */
 	public static void main(String[] args) {
-		int a, b, c, d, e, f = 0;
-		
-		a = (getRandomInt(1, 6)); 
-//		took the value 6 instead of 49, in order to be sure that Loto works
-		do b = (getRandomInt(1, 6)); 
-			while (b == a);
-		do c = (getRandomInt(1, 6)); 
-			while (c == a || c == b);
-		do d = (getRandomInt(1, 6)); 
-		 	while (d == a || d == b || d == c);
-		do e = (getRandomInt(1, 6)); 
-		 	while (e == a || e == b || e == c || e == d);
-		do f = (getRandomInt(1, 6)); 
-		 	while (f == a || f == b || f == c || f == d || f == e); 
-			
-		System.out.print(a + " " + b + " " + c + " " + d + " " + e + " " + f);
-//		for (int i = 0; i < 6; i++) {
-//			System.out.print(getRandomInt(1, 49) + " ");
-//		}
+		long a = 0;
+		int i = 0;
+		while (i < 6) {
+			int b = getRandomInt(1, 6);
+			if (BitOperations.getBitValue(a, b) == 0) {
+			System.out.print(b + " ");
+			a = BitOperations.invertBitValue(a, b);
+			i ++;
+			}
 		}
+		
+//		long a = 0;
+//		int i = 1;
+//		while (i < 7) {
+//			int b = getRandomInt(1, 6);
+//			if (BitOperations.getBitValue(a, b) == 0) {
+//			a = BitOperations.invertBitValue(a, b);
+//			int c = BitOperations.onesInNumber(a);
+//			if (c == i) {
+//			System.out.print(b + " ");
+//			i ++;
+//			}
+//			}
+//		}
+		
+	}
 	
 	
 	public static int getRandomInt(int min,int max) {
@@ -34,3 +40,5 @@ public class SportLotoAppl {
 	}
 	
 }
+
+

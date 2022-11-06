@@ -19,13 +19,9 @@ static public boolean isHappyNumber (int number) {
 	int amount = 0;
 	int first3 = 0;
 	int last3 = 0;
-	int aux = number;
 	
 	if (number > 0) {
-	do {
-		aux /= 10;
-		amount++;
-	} while (aux != 0);
+		amount = getNdigits(number);
 	 	
 	if (amount == 6) { 
 	
