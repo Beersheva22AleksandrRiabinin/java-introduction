@@ -1,5 +1,6 @@
 
 public class Numbers {
+	public static final int N_HAPPY_NUMBER_DIGITS = 6;
 static public int getNdigits(long number) {
 	int res = 0;
 	do {
@@ -7,6 +8,7 @@ static public int getNdigits(long number) {
 		res++;
 	} while(number != 0);
 	return res;
+	
 }
 /**
  * 
@@ -16,31 +18,45 @@ static public int getNdigits(long number) {
  */
 static public boolean isHappyNumber (int number) {
 	boolean res = false;
-	int amount = 0;
-	int first3 = 0;
-	int last3 = 0;
+	number = Math.abs(number);
+	if (getNdigits(number) == N_HAPPY_NUMBER_DIGITS) {
+		int halfDigits = N_HAPPY_NUMBER_DIGITS / 2;
+		int numberPartDivider = (int) Math.pow(10, halfDigits);
+		int sumFirstPart = getSumDigits(number / numberPartDivider);
+		res = sumFirstPart == getSumDigits(number % numberPartDivider);
+		
+	}
+	return res;
+	}
+
+	static public int getSumDigits(int number) {
+		int res = 0;
+		do {
+			res += number % 10;
+			number /= 10;
+		} while (number != 0);
+		return res;
+	}
 	
-	if (number > 0) {
-		amount = getNdigits(number);
-	 	
-	if (amount == 6) { 
 	
-	for (int i = 0; i < 3; i++) {
-		first3 += number % 10;
-		number /= 10;
+	public static int[] getDigits(int number) {
+		int res[] = new int[getNdigits(number)];
+		for (int i = res.length - 1; i >= 0; i--) {
+			res[i] = number % 10;
+			number /= 10;
+		}
+		return res;
 	}
-	for (int i = 0; i < 3; i++) {
-		last3 += number % 10;
-		number /= 10;
+	public static int getNumberFromDigits(int[] digits) {
+		int res = 0;
+		for(int i = 0; i < digits.length; i++) {
+			res = res * 10 + digits[i];
+		}
+		return res;
 	}
 	
-	if (first3 == last3) {
-	res = true;
-	}
-	}
-	} 
 	
-	return res; 
-	}
+	
+
 		
 }

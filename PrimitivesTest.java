@@ -81,6 +81,7 @@ class PrimitivesTest {
 	}
 	
 	@Test
+	@Disabled
 	void digitsNumberTest() {
 		long a = 44;
 		assertEquals(2, Numbers.getNdigits(a));
@@ -92,6 +93,7 @@ class PrimitivesTest {
 		assertEquals(1, Numbers.getNdigits(d));
 	}
 	@Test
+	@Disabled
 	void leadingZerosTest() {
 		long a = 0xFF;
 		assertEquals(56, BitOperations.leadingZeros(a));
@@ -100,6 +102,7 @@ class PrimitivesTest {
 		
 	}
 	@Test 
+	@Disabled
 	void leadingOnesTest() {
 		long a = 0xFF;
 		assertEquals(8, BitOperations.onesInNumber(a));
@@ -113,24 +116,46 @@ class PrimitivesTest {
 		assertEquals(63, BitOperations.onesInNumber(e));
 	}
 	@Test
+	@Disabled
 	void isHappyNumberTest() {
-		int a = 912453;
-		assertEquals(true, Numbers.isHappyNumber(a));
-		int b = 190532;
-		assertEquals(true, Numbers.isHappyNumber(b));
-		int c = 222223;
-		assertEquals(false, Numbers.isHappyNumber(c));
-		int d = 1234567;
-		assertEquals(false, Numbers.isHappyNumber(d));
-		int e = 12345;
-		assertEquals(false, Numbers.isHappyNumber(e));
-		int f = -913562;
-		assertEquals(false, Numbers.isHappyNumber(f));
-		int g = 100001;
-		assertEquals(true, Numbers.isHappyNumber(g));
-		int h = 0;
-		assertEquals(false, Numbers.isHappyNumber(h)); 
-		
+		int expectedTrue = 123123;
+		int expectedFalse = 123456;
+		assertTrue(Numbers.isHappyNumber(expectedTrue));
+		assertFalse(Numbers.isHappyNumber(expectedFalse));		
 	}
-
+	@Test
+	@Disabled
+	void getDigitsTest() {
+		int expected[] = {1, 2, 3, 4};
+		assertArrayEquals(expected, Numbers.getDigits(1234));
+	}
+	@Test
+	@Disabled
+	void getNumberFromDigitsTest() {
+		int expectedNumber = 1234;	
+		assertEquals(expectedNumber, Numbers.getNumberFromDigits(new int[]{1, 2, 3, 4}));
+	}
+	@Test
+	void verifyIdTest () {
+		int id = 346847783;
+		assertTrue(IsraelIdentity.verify(id));
+		int id2 = 346847782;
+		assertFalse(IsraelIdentity.verify(id2));
+	}
+	@Test
+	void addsNumberTest () {
+		int expected[] = {1, 2, 3, 4, 7};
+		assertArrayEquals(expected, MyArrays.addsNumber(new int[]{1, 2, 3, 4}, 7));
+	}
+	@Test 
+	void removeNumber () {
+		int expected[] = {1, 2, 4, 5};
+		assertArrayEquals(expected, MyArrays.removeNumber(new int[]{1, 2, 3, 4, 5}, 2));
+	}
+	@Test
+	void insertSorted () {
+		int expected[] = {1, 4, 6, 9, 10, 11};
+		assertArrayEquals(expected, MyArrays.insertSorted(new int[]{1, 4, 6, 9, 11}, 10));
+	}
+	
 }

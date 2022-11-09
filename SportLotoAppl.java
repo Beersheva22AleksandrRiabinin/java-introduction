@@ -6,39 +6,37 @@ public class SportLotoAppl {
 	 * numbers can not be repeated in a sequence of 6 random numbers
 	 * no additional collections / arrays
 	 */
+	static long mask = 0;
 	public static void main(String[] args) {
-		long a = 0;
-		int i = 0;
-		while (i < 6) {
-			int b = getRandomInt(1, 6);
-			if (BitOperations.getBitValue(a, b) == 0) {
-			System.out.print(b + " ");
-			a = BitOperations.invertBitValue(a, b);
-			i ++;
-			}
+		for (int i = 0; i < 6; i ++) {
+			System.out.print(getUniqueRandomInt(1, 49) + " ");
 		}
 		
 //		long a = 0;
-//		int i = 1;
-//		while (i < 7) {
-//			int b = getRandomInt(1, 6);
+//		int i = 0;
+//		while (i < 6) {
+//			int b = getUniqueRandomInt(1, 6);
 //			if (BitOperations.getBitValue(a, b) == 0) {
-//			a = BitOperations.invertBitValue(a, b);
-//			int c = BitOperations.onesInNumber(a);
-//			if (c == i) {
 //			System.out.print(b + " ");
+//			a = BitOperations.invertBitValue(a, b);
 //			i ++;
 //			}
-//			}
-//		}
-		
+//		}		
 	}
 	
 	
-	public static int getRandomInt(int min,int max) {
-		return (int) (min + Math.random() * (max - min +1));
+	public static int getUniqueRandomInt(int min,int max) {
+		int res = 0;
+		do {
+			res = (int) (min + Math.random() * (max - min +1));
+		} while (BitOperations.getBitValue(mask, res) == 1);
+		mask = BitOperations.setBitValue(mask, res, true);
+		return res;
 	}
 	
+	public static int getRandomInt(int min, int max) {
+		return (int)(min + Math.random() * (max - min + 1));
+	}
 }
 
 

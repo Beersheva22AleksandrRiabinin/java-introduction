@@ -16,9 +16,6 @@ private static final int N_BITS = 64;
 	int res = -1;
 		if (checkNbit(nBit)) {
 		long mask = getMask(nBit); //all bits are 0 except bit with number nBit
-//		System.out.println(nBit);
-//		System.out.println(mask);
-//		System.out.println(Long.toBinaryString(mask));
 		
 		res = (number & mask) == 0 ? 0 : 1;
 		
