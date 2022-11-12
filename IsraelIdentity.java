@@ -1,6 +1,6 @@
 
 public class IsraelIdentity {
-	public static final int N_ID_DIGITS = 9;
+	public static final int N_DIGITS_ID = 9;
 /**
  * 
  * @param id
@@ -16,59 +16,72 @@ public class IsraelIdentity {
 	}
 	
 	public static boolean verify(int id) {
-	boolean res = false;
-	int sum = idDigitsControlSum(id);
-	if (sum % 10 == 0) {
-		res = true;
-	}	
-	return res;
+		boolean res = false;
+		if (id > 0) {
+			int digits[] = Numbers.getDigits(id);
+			if (N_DIGITS_ID == digits.length) {
+				int controlSum = getControlSum(digits);
+				res = controlSum % 10 == 0;
+			}
+			
+		}
+		return res;
 	}
-	
-	public static int idDigitsControlSum (int id) {
-		int arrayId[] = Numbers.getDigits(id);
-		int sum = 0;
-		for (int i = 0; i < N_ID_DIGITS; i+=2) {
-			sum += + arrayId[i];
+
+	private static int getControlSum(int[] digits) {
+		return sumEvenIndexes(digits) + sumOddIndexes(digits);
+	}
+
+	private static int sumOddIndexes(int[] digits) {
+		int res = 0;
+		for(int i = 1; i < digits.length; i += 2) {
+			int digit = digits[i] * 2;
+			if (digit > 9) {
+				digit -= 9;
+			}
+			res += digit;
 		}
-		for (int i = 1; i < N_ID_DIGITS; i+=2) {
-			if (arrayId[i] * 2 > 9) {
-				sum += Numbers.getSumDigits(arrayId[i] * 2);
-			} else { 
-				sum += arrayId[i] * 2;
-			} 		
+		return res;
+	}
+
+	private static int sumEvenIndexes(int[] digits) {
+		int res = 0;
+		for (int i = 0; i < digits.length; i += 2) {
+			res += digits[i];
 		}
-		return sum;
-	}	
+		return res;
+	}
 	/**
 	 * 
 	 * @return random number of 9 digits matching right Israel id
 	 * cycle not more than 9 iterations ( = 9 ? )
 	 */
 	public static int generateRandomId() {
-	int rdmArray[] = new int[N_ID_DIGITS];
-	int sum = 0;
-	int lastDigit = 0;
-		rdmArray[0] = SportLotoAppl.getRandomInt(1, N_ID_DIGITS);		
-		for (int i = 1; i < N_ID_DIGITS - 1; i++) {			
-			rdmArray[i] = SportLotoAppl.getRandomInt(0, N_ID_DIGITS);		
-		}
-		int rdmId = Numbers.getNumberFromDigits(rdmArray);
-		sum = idDigitsControlSum(rdmId);
-		
-		if (sum % 10 != 0) {			
-			do {				
-				sum += 1;
-				lastDigit ++;
-			} while (sum % 10 != 0);
-			rdmArray[N_ID_DIGITS - 1] = lastDigit;
-			rdmId = Numbers.getNumberFromDigits(rdmArray);
-			System.out.print(rdmId);
-			sum = idDigitsControlSum(rdmId);
-			System.out.print(" /" + sum + "/");
-		} else {
-			System.out.print(rdmId + " /" + sum + "/.");
-		}	
-	return 0;
+		int digits[] = new int[N_DIGITS_ID - 1];
+		fillRandomDigits(digits);
+		int controlSum = getControlSum(digits);
+		int lastDigit = getLastDigit(controlSum) ;
+		int res = Numbers.getNumberFromDigits(digits);
+		res = res * 10 + lastDigit;
+//		System.out.print(res);
+		return res;
 	}
 	
+	private static int getLastDigit(int controlSum) {
+		int rem = controlSum % 10;
+		int res = 0;
+		if(rem != 0) {
+			res = 10 - rem;
+		}
+		
+		return res;		
+	}
+	
+	private static void fillRandomDigits(int[] digits) {
+		digits[0] = (int) SportLotoAppl.getRandomInt(1, 9);
+		for(int i = 1; i < digits.length; i++) {
+			digits[i] = (int) SportLotoAppl.getRandomInt(0, 9);
+		}
+		
+	}
 }
