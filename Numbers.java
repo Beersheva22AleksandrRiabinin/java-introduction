@@ -56,7 +56,9 @@ static public boolean isHappyNumber (int number) {
 	}
 	
 	
-	
+	public static int getRandomNumber(int min, int max) {
+		return (int)(min + Math.random() * (max - min + 1));
+	}
 
 		
 }

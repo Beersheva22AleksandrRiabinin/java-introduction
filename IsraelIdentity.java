@@ -78,10 +78,11 @@ public class IsraelIdentity {
 	}
 	
 	private static void fillRandomDigits(int[] digits) {
-		digits[0] = (int) SportLotoAppl.getRandomInt(1, 9);
+		digits[0] = (int) Numbers.getRandomNumber(1, 9);
 		for(int i = 1; i < digits.length; i++) {
-			digits[i] = (int) SportLotoAppl.getRandomInt(0, 9);
+			digits[i] = (int) Numbers.getRandomNumber(0, 9);
 		}
 		
 	}
+	
 }

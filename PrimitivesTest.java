@@ -162,6 +162,7 @@ class PrimitivesTest {
 		assertArrayEquals(expected, MyArrays.insertSorted(new int[]{1, 4, 6, 9, 11}, 10));
 	}
 	@Test
+	@Disabled
 	void binarySearch( ) {
 		int number = 3;
 		assertEquals(2, MyArrays.binarySearch(new int [] {1,2,3,3,4}, number));
@@ -170,14 +171,15 @@ class PrimitivesTest {
 		int number3 = 2;
 		assertEquals(0, MyArrays.binarySearch(new int [] {2,2,2,2,2}, number3));
 		int number4 = 4;
-		assertEquals(-1, MyArrays.binarySearch(new int [] {1,2,3,5}, number4));		
+		assertEquals(-4, MyArrays.binarySearch(new int [] {1,2,3,5}, number4));		
 	}
+//	@Test
+//	void bubbleSort () {
+//		int expected[] = {1, 2, 3, 4, 5, 6};
+//		assertArrayEquals(expected, MyArrays.bubbleSort(new int[]{6, 4, 5, 2, 3, 1}));
+//	}
 	@Test
-	void bubbleSort () {
-		int expected[] = {1, 2, 3, 4, 5, 6};
-		assertArrayEquals(expected, MyArrays.bubbleSort(new int[]{6, 4, 5, 2, 3, 1}));
-	}
-	@Test
+	@Disabled
 	void isOneSwapTestTrue() {
 	int ar1[] = { 10, 2, 3, 4, 1 };
 	assertTrue(MyArrays.isOneSwapForSorted(ar1));
@@ -193,6 +195,10 @@ class PrimitivesTest {
 	assertTrue(MyArrays.isOneSwapForSorted(ar6));
 	int ar7[] = { 3, 2, 1, 4, 5, 6 };
 	assertTrue(MyArrays.isOneSwapForSorted(ar7));
+	int ar8[] = { 1, 2, 2, 3, 3, 4, 4, 4, 3, 5 };
+	assertTrue(MyArrays.isOneSwapForSorted(ar8));
+	int ar9[] = { 1, 2, 4, 3, 3, 3, 5 };
+	assertTrue(MyArrays.isOneSwapForSorted(ar9));
 	
 	int ar11[] = { 1, 2, 3, 10, -1, 5, 6 };
 	assertFalse(MyArrays.isOneSwapForSorted(ar11));
@@ -210,4 +216,10 @@ class PrimitivesTest {
 	assertFalse(MyArrays.isOneSwapForSorted(ar71));
 	}
 
+	@Test
+	void isSum2Test() {
+	int ar1[] = { 4, 8, 1, 2, 7, 5};
+	assertTrue(MyArrays.isSum2(ar1, (short) 13));
+	}
 }
+

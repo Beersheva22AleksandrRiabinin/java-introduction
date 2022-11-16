@@ -7,6 +7,9 @@ public class MyArrays {
  * @param number
  * @return new array with added at end a given number
  */
+//	public static void main(String[] args) {
+//		bubbleSort(new int[]{3,2,7,8,4,1});
+//	}
 	public static int[] addsNumber (int[] array, int number) {
 		int res[] = Arrays.copyOf(array, array.length + 1);
 		res[array.length] = number;
@@ -65,77 +68,149 @@ public class MyArrays {
 	 * O[LogN] - search number in sorted (binary search)
 	 */
 	public static int binarySearch(int arraySorted[], int number) {
+//		int left = 0;
+//		int right = arraySorted.length -1;
+//		int middle = right / 2;
+//		while (left <= right && arraySorted[middle] != number) {
+//			if (number < arraySorted[middle]) {
+//				right = middle - 1;
+//			} else {
+//				left = middle + 1;
+//			}
+//			middle = (left + right) / 2;
+//		}
+//		return left > right ? -1 : middle;
+//	}
 		int left = 0;
 		int right = arraySorted.length -1;
-		int middle = right / 2;
-		while (left <= right && arraySorted[middle] != number) {
-			if (number < arraySorted[middle]) {
+		int middle = arraySorted.length / 2;
+		while (left <= right && arraySorted[left] != number) {
+			if (number <= arraySorted[middle]) {
 				right = middle - 1;
 			} else {
 				left = middle + 1;
 			}
 			middle = (left + right) / 2;
-		}		
-
-			left = 0;
-			right = middle;
-			middle = right / 2;
-			while (left <= right && arraySorted[middle] == number && right != 0) {
-				if (number != arraySorted[middle]) {
-					left = middle + 1;				
-				} else {
-					right = middle;			
-				}
-				middle = (left + right) / 2;				
-			}				
-
-			while (left <= right && arraySorted[middle] != number) {
-				if (number != arraySorted[middle]) {
-					left = middle + 1;				
-				} else {
-					right = middle;			
-				}
-				middle = (left + right) / 2;		
-			}				
-		
-		return left > right ? -1 : middle;
+		}							
+		return left < arraySorted.length && arraySorted[left] == number ? left : -left - 1;
 	}
 	
+//	public static boolean isOneSwapForSorted(int array[]) {
+//		boolean res = false;
+//		int sortArray[] = new int[array.length];
+//		System.arraycopy(array, 0, sortArray, 0, array.length);
+//		bubbleSort(sortArray);
+//		int count = 0;
+//		for (int i = 0; i < array.length; i++) {			
+//			if (array[i] != sortArray[i]) {
+//				count++;
+//			}			
+//		}
+//			if (count == 2 && count != 0) {
+//				res = true;
+//			}
+//		return res;
+//	}
 	public static boolean isOneSwapForSorted(int array[]) {
-		boolean res = false;
-		int sortArray[] = new int[array.length];
-		System.arraycopy(array, 0, sortArray, 0, array.length);
-		bubbleSort(sortArray);
-		int count = 0;
-		for (int i = 0; i < array.length; i++) {			
-			if (array[i] != sortArray[i]) {
-				count++;
-			}			
-		}
-			if (count == 2 && count != 0) {
-				res = true;
+
+		// The method returns true if an given array is not sorted
+		// but to do it sorted there should be done only one swap of any numbers (not
+		// mandatory
+		// that the being swapped numbers placed one after other)
+
+		int index1 = -1;
+		int index2 = -1;
+		int length = array.length - 1;
+		int equaledCount = 0;
+		boolean res = true;
+		int i = 0;
+		while (i < length && res) {
+			if (array[i] > array[i + 1]) {
+				if (index1 == -1) {
+					index1 = i - equaledCount;
+					if (equaledCount > 0) {
+						index2 = i + 1;
+					}
+				} else if (index2 != -1) {
+					res = false;
+				} else {
+					index2 = i + 1;
+				}
+			} else if (array[i] == array[i + 1]) {
+				equaledCount++;
+			} else if (array[i] < array[i + 1]) {
+				if (equaledCount != 0 && index1 != -1 && index2 == -1 && array[i] < array[index1]) {
+					index2 = i;
+				}
+				equaledCount = 0;
 			}
+			i++;
+		}
+		return index1 != -1 && res ? checkIndexes(array, index1, index2) : false;
+
+	}
+	private static boolean checkIndexes(int[] array, int index1, int index2) {
+
+		return index2 == -1 ? checkOneIndex(array, index1) : checkTwoIndexes(array, index1, index2);
+	}
+
+	private static boolean checkTwoIndexes(int[] array, int index1, int index2) {
+
+		return (index2 == array.length - 1 || array[index1] <= array[index2 + 1]) 
+				&& array[index2] <= array[index1 + 1]
+				&& (index1 == 0 || array[index2] >= array[index1 - 1]);
+		
+	}
+
+	private static boolean checkOneIndex(int[] array, int index) {
+
+		return (index == array.length - 2 || array[index] <= array[index + 2])
+				&& (index == 0 || array[index + 1] >= array[index - 1]);
+	}
+	
+	static public void bubbleSort(int[] array) {
+		int unsortedLength = array.length;
+		do {
+			unsortedLength = moveGreaterRight(array, unsortedLength - 1);
+		}while(unsortedLength != 0);
+	}
+
+	static private int moveGreaterRight(int[] array, int length) {
+		int res = 0;
+		for (int i = 0; i < length; i++) {
+			if(array[i] > array[i + 1]) {
+				res = i + 1;
+				swap(array, i, i + 1);
+			}
+		}
 		return res;
 	}
-	
-	public static int[] bubbleSort(int array[]) {		
+
+	static private void swap(int[] array, int i, int j) {
+		int tmp = array[i];
+		array[i] = array[j];
+		array[j] = tmp;
+		
+	}			
+	/**
+	 * 
+	 * @param array of short positive numbers
+	 * @param sum
+	 * @return true if array contains two numbers, sum of which equals a given sum
+	 */
+	static public boolean isSum2(int array [], short sum) {
+		boolean res = false;
+		int arr[] = new int[sum];
 		for (int i = 0; i < array.length; i++) {
-			moveGreaterRight(array);
-		}		
-		return array;
-	}	
-	private static int[] moveGreaterRight(int array[]) {
-		for (int i = 0; i < array.length - 1; i++) {
-			if (array[i] > array[i + 1]) {
-				int temp = array[i];
-				array[i] = array[i + 1];
-				array[i + 1] = temp;
-			}		
+			int dif = sum - array[i];
+			arr[array[i]] += 1;
+			arr[dif] += 1;	
+			if (arr[i] == 2 && arr[dif] == 2) {
+				res = true;
+			}
 		}
-		return array;
+		return res;
 	}
-	
-	
-	
+
 	
 }
