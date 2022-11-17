@@ -218,7 +218,7 @@ class PrimitivesTest {
 
 	@Test
 	void isSum2Test() {
-	int ar1[] = { 4, 8, 1, 2, 7, 5};
+	short ar1[] = { 4, 8, 1, 2, 7, 5};
 	assertTrue(MyArrays.isSum2(ar1, (short) 13));
 	}
 }

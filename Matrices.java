@@ -12,13 +12,13 @@ public class Matrices {
 		return res;
 	}
 	public static int[][] transp(int[][] matrix) {
-		int[][] myMatrix = new int[matrix[0].length][matrix.length];	
-		for (int i = 0; i < myMatrix.length ; i++) {			
-			for (int j = 0; j < myMatrix[0].length; j++) {
-				myMatrix[i][j] = matrix[j][i];
+		int[][] res = new int[matrix[0].length][matrix.length];	
+		for (int i = 0; i < res.length ; i++) {			
+			for (int j = 0; j < res[0].length; j++) {
+				res[i][j] = matrix[j][i];
 			}			
 		}	
-		return myMatrix;
+		return res;
 	}
 	
 
