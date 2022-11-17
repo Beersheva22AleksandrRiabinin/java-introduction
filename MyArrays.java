@@ -198,16 +198,21 @@ public class MyArrays {
 	 * @param sum
 	 * @return true if array contains two numbers, sum of which equals a given sum
 	 */
-	static public boolean isSum2(int array [], short sum) {
+static public boolean isSum2(short array[], short sum) {
+		
+		boolean helper[] = new boolean [sum >= 0 ? sum + 1 : 0x7fff + 1];
 		boolean res = false;
-		int arr[] = new int[sum];
-		for (int i = 0; i < array.length; i++) {
-			int dif = sum - array[i];
-			arr[array[i]] += 1;
-			arr[dif] += 1;	
-			if (arr[i] == 2 && arr[dif] == 2) {
-				res = true;
+		int index = 0;
+		while(index < array.length && !res) {
+			short diff = (short) (sum - array[index]);
+			if (diff >= 0) {
+				if(helper[diff]) {
+					res =true;
+				} else {
+					helper[array[index]] = true;
+				}
 			}
+			index++;
 		}
 		return res;
 	}
