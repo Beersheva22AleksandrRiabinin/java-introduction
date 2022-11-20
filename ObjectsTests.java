@@ -24,6 +24,20 @@ class ObjectsTests {
 		System.out.println((byte)helloAr[0]);
 		assertEquals(5, hello.length());
 	}
+	@Test
+	void isAnagramTest () {
+		String str1 = "listen";
+		String str2 = "silent";
+		assertTrue(Strings.isAnagram(str1, str2));
+		String word = "yellow";
+		assertTrue(Strings.isAnagram(word, "loweyl"));
+		assertTrue(Strings.isAnagram(word, "elolyw"));
+		assertTrue(Strings.isAnagram(word, "wolley"));
+		assertTrue(Strings.isAnagram(word, "loleyw"));
+		assertFalse(Strings.isAnagram(word,""));
+		assertFalse(Strings.isAnagram(word, "yellob"));
+		assertFalse(Strings.isAnagram(word,"yello"));
+		assertFalse(Strings.isAnagram(word,"yelllo"));
+	}
 	
-
 }
