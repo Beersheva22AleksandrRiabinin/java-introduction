@@ -38,6 +38,7 @@ class ObjectsTests {
 		assertFalse(Strings.isAnagram(word, "yellob"));
 		assertFalse(Strings.isAnagram(word,"yello"));
 		assertFalse(Strings.isAnagram(word,"yelllo"));
+		assertFalse(Strings.isAnagram(word, "wolkez"));
 	}
 	
 }
