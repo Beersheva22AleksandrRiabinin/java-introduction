@@ -116,7 +116,7 @@ public class Strings {
 	}
 	public static String ipV4() {
 		
-		return "(ipV4Octet).(ipV4Octet).(ipV4Octet).(ipV4Octet)";
+		return "((\\d|\\d{2}|[01]\\d{2}|2[0-4]\\d|25[0-5])\\.){3}(\\d|\\d{2}|[01]\\d{2}|2[0-4]\\d|25[0-5])";
 	}
 
 	

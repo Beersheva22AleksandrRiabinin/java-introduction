@@ -53,7 +53,7 @@ String word="yellow";
 		assertFalse("12x".matches(Strings.ipV4Octet()));
 		assertFalse("".matches(Strings.ipV4Octet()));
 	}
-	
+	@Test
 	void ipV4() {
 		assertTrue("255.255.255.255".matches(Strings.ipV4()));
 		assertTrue("0.0.0.0".matches(Strings.ipV4()));
