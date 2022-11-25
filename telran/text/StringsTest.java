@@ -1,7 +1,8 @@
+package telran.text;
 import static org.junit.jupiter.api.Assertions.*;
 
-import org.junit.jupiter.api.Disabled;
-import org.junit.jupiter.api.Test;
+import static telran.text.Strings.*;
+import org.junit.jupiter.api.*;
 
 class StringsTest {
 String word="yellow";
@@ -41,7 +42,7 @@ String word="yellow";
 		assertFalse("$ _".matches(Strings.javaNameExp()));	
 	}
 	@Test
-	void ipV4Octet() {
+	void ipV4OctetTest() {
 		assertTrue("255".matches(Strings.ipV4Octet()));
 		assertTrue("0".matches(Strings.ipV4Octet()));
 		assertTrue("12".matches(Strings.ipV4Octet()));
@@ -54,8 +55,8 @@ String word="yellow";
 		assertFalse("".matches(Strings.ipV4Octet()));
 	}
 	@Test
-	void ipV4() {
-		assertTrue("255.255.255.255".matches(Strings.ipV4()));
+	void ipV4Test() {
+		assertTrue("255.255.255.255".matches(ipV4()));
 		assertTrue("0.0.0.0".matches(Strings.ipV4()));
 		assertTrue("12.13.14.15".matches(Strings.ipV4()));
 		assertTrue("123.132.231.213".matches(Strings.ipV4()));
@@ -67,5 +68,19 @@ String word="yellow";
 		assertFalse("12x.123.123.123".matches(Strings.ipV4()));
 		assertFalse("123.123.123".matches(Strings.ipV4()));
 	}
+	@Test
+	void computeExpressionTest() {
+		assertEquals(20.5, computeArithmeticExpression("(2 + 2) + (1) * 2 + .5 + a + b", new double[] {10, 0}, new String[] {"a", "b"}));
+		assertEquals(.5, computeArithmeticExpression("((3 + 3) + 1) * (2 + .5) - a + b", new double[] {7, -7}, new String[] {"a", "b"}));
+		assertTrue(Double.isNaN(computeArithmeticExpression("(2 + 2))", null, null)));
+		assertTrue(Double.isNaN(computeArithmeticExpression("(b + 2 + java + c)", new double[] {1, 1}, new String[] {"b", "c"})));
+		assertTrue(Double.isNaN(computeArithmeticExpression("(2 + )2", null, null)));
+		assertTrue(Double.isNaN(computeArithmeticExpression("2 # 2 + 10", null, null)));
+		assertEquals(1.5, computeArithmeticExpression("2 + a + b + 10 / c", new double[] {2, 1, 10}, new String[] {"a", "b", "c"}));
+		assertTrue(Double.isNaN(computeArithmeticExpression("a + 2 + b + 10 + c", new double[] {2, 1}, new String[] {"a", "b"})));
+		assertTrue(Double.isNaN(computeArithmeticExpression("a + 2 + b + 10 + c", new double[] {2, 1}, new String[] {"a", "b", "c"})));
+	}
+
+	
 
 }
