@@ -78,7 +78,7 @@ String word="yellow";
 		assertTrue(Double.isNaN(computeArithmeticExpression("2 # 2 + 10", null, null)));
 		assertEquals(2.5, computeArithmeticExpression("2 + a + b + 10 / c + b", new double[] {2, 1, 10}, new String[] {"a", "b", "c"}));
 		assertTrue(Double.isNaN(computeArithmeticExpression("a + 2 + b + 10 + c", new double[] {2, 1}, new String[] {"a", "b"})));
-		assertTrue(Double.isNaN(computeArithmeticExpression("a + 2 + b + 10 + c", new double[] {2, 1}, new String[] {"a", "b", "c"})));
+		assertEquals(15, computeArithmeticExpression("a + 2 + b + 10 + c", new double[] {2, 1}, new String[] {"a", "b", "c"}));
 	}
 
 }

@@ -1,5 +1,7 @@
 package telran.text;
 
+import java.util.Arrays;
+
 public class Strings {
 	/**
 	 * 
@@ -165,6 +167,8 @@ public class Strings {
 	public static Double computeArithmeticExpression(String expression, 
 			double values[], String names[]) { 
 		Double res = Double.NaN;
+		names = getUpdatedNames(names);
+		values = getUpdatedValues(values, names);
 		if (isArithmeticExpression(expression) && checkBraces(expression)) {
 			expression = expression.replaceAll("[\\s()]+", "");
 			String operands[] = expression.split(operator());
@@ -178,6 +182,20 @@ public class Strings {
 			}			
 		}
 		return res;
+	}
+	private static double[] getUpdatedValues(double[] values, String[] names) {
+		if (values == null) {
+			values = new double[0];
+		}
+		if (values.length != names.length) {
+			values = Arrays.copyOf(values,names.length);
+		}
+		return values;
+	}
+
+	private static String[] getUpdatedNames(String[] names) {
+		
+		return names == null ? new String[0] : names;
 	}
 
 	private static Double computeOperation(Double operand1, double operand2, 
@@ -197,41 +215,46 @@ public class Strings {
 
 	private static Double getOperandValue(String operand, double[] values, String[] names) {
 		Double res = Double.NaN;
-		if (values.length == names.length) {
-			if (operand.matches(numberExp())) { 
-				//res = Double.parseDouble(operand);
-				res = Double.valueOf(operand);
-			} else if (operand.matches(javaNameExp())){
-				int index = 0;
-				while (index < names.length && res.isNaN()) {
-					if (operand.equals(names[index])) {
-						res = values[index];
-					}
-					index++;
-				}
+//		if (values.length == names.length) {
+//			if (operand.matches(numberExp())) { 
+//				//res = Double.parseDouble(operand);
+//				res = Double.valueOf(operand);
+//			} else if (operand.matches(javaNameExp())){
+//				int index = 0;
+//				while (index < names.length && res.isNaN()) {
+//					if (operand.equals(names[index])) {
+//						res = values[index];
+//					}
+//					index++;
+//				}
+//			}
+//		}
+//		// for possible variable names
+//		return res;
+		if(operand.matches(numberExp())) {
+			res = Double.valueOf(operand);
+		} else {
+			int index = Arrays.binarySearch(names, operand);
+			if (index > -1) {
+				res = values[index];
 			}
 		}
-		// for possible variable names
 		return res;
 	}
 
 	public static boolean checkBraces(String expression) {
-		String[] exp = expression.split("");
-//		boolean res= false;
-		int index = 0;
 		int count = 0;
-		while (index < exp.length && count > -1) {
-			if (exp[index].equals("(")) {
+		int index = 0;
+		int length = expression.length();
+		while(index < length && count > -1) {
+			char symb = expression.charAt(index);
+			if (symb == '(') {
 				count++;
-			} else if (exp[index].equals(")")) {
+			} else if (symb == ')') {
 				count--;
 			}
-			index++;			
+			index++;
 		}
-//		if (count == 0) {
-//			res = true;
-//		}
-//		return res; 
 		return count == 0;
 	}
 
