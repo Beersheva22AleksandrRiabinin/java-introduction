@@ -129,20 +129,22 @@ public class Strings {
 		//adds checking right placing the braces 
 		String openBrace = "\\(";
 		String closeBrace = "\\)";		
-		String operandWithBraces = String.format("%2$s*%1$s%3$s*", operandExp, openBrace, closeBrace);
+		//String operandWithBraces = String.format("%2$s*%1$s%3$s*", operandExp, openBrace, closeBrace);
+		String operandWithBraces = String.format("%s*%s%s*", openBrace, operandExp, closeBrace);
 		return String.format("%1$s(%2$s%1$s)*", operandWithBraces, operatorExp);
 
 	}
 	
-	public static String onlyDigOperand() {
+	public static String numberExp() {
 		return "(\\d+\\.?\\d*|\\.\\d+)";
 	}
 
 	public static String operand() {
-		String operand = "(\\d+\\.?\\d*|\\.\\d+)"; 
+		String operand = numberExp(); 
 		String javaVar = javaNameExp();
 		//ads possibility of using Java variables 
-		return String.format("(%1$s|%2$s)", operand, javaVar);
+		//return String.format("(%1$s|%2$s)", operand, javaVar);
+		return String.format("(%s|%s)", operand, javaVar);
 	}
 
 	private static String operator() {
@@ -196,8 +198,9 @@ public class Strings {
 	private static Double getOperandValue(String operand, double[] values, String[] names) {
 		Double res = Double.NaN;
 		if (values.length == names.length) {
-			if (operand.matches(onlyDigOperand())) { 
-				res = Double.parseDouble(operand);
+			if (operand.matches(numberExp())) { 
+				//res = Double.parseDouble(operand);
+				res = Double.valueOf(operand);
 			} else if (operand.matches(javaNameExp())){
 				int index = 0;
 				while (index < names.length && res.isNaN()) {
@@ -207,29 +210,29 @@ public class Strings {
 					index++;
 				}
 			}
-		}	
+		}
 		// for possible variable names
 		return res;
 	}
 
 	public static boolean checkBraces(String expression) {
 		String[] exp = expression.split("");
-		boolean res= false;
+//		boolean res= false;
 		int index = 0;
 		int count = 0;
 		while (index < exp.length && count > -1) {
 			if (exp[index].equals("(")) {
 				count++;
-			}
-			if (exp[index].equals(")")) {
+			} else if (exp[index].equals(")")) {
 				count--;
 			}
 			index++;			
 		}
-		if (count == 0) {
-			res = true;
-		}
-		return res; 
+//		if (count == 0) {
+//			res = true;
+//		}
+//		return res; 
+		return count == 0;
 	}
 
 	
